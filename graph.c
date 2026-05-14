@@ -43,7 +43,7 @@ void addNode(Graph* g, const char* label) {
 
     if(!(map_search(g->adjacencyMap, (void *)label))) {
         List *edgesList = list_create();
-        map_insert(g->adjacencyMap, (void *) strdup(label), (void *)edgesList);
+        map_insert(g->adjacencyMap, (void *) label, (void *)edgesList);
     }
 }
 
