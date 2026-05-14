@@ -43,13 +43,13 @@ void addNode(Graph* g, const char* label) {
 
     if(!(map_search(g->adjacencyMap, (void *)label))) {
         List *edgesList = list_create();
-        map_insert(g->adjacencyMap, (void *)strdup(label), (void *)edgesList);
+        map_insert(g->adjacencyMap, (void *) strdup(label), (void *)edgesList);
     }
 }
 
 void addEdge(Graph* g, const char* src, const char* dest, int weight) {
     if (!g || !src || !dest) return;
-    List *edges = (List *) map_search(g->adjacencyMap, (void *)src);
+    List *edges = getEdges(g, src);
 
     if(edges) {
         Edge *newEdge = (Edge *) malloc(sizeof(Edge));
@@ -58,27 +58,21 @@ void addEdge(Graph* g, const char* src, const char* dest, int weight) {
         newEdge->target = strdup(dest);
         newEdge->weight = weight;
 
-        list_pushBack(edges, (void *)newEdge);
+        list_pushBack(edges, (void *) newEdge);
     }
 }
 
 List* getEdges(Graph* g, const char* label) {
     if (!g || !label) return NULL;
 
-    return (List *) map_search(g->adjacencyMap, (void*)label);
+    MapPair *pair = map_search(g->adjacencyMap, (void *)label);
+    if(!pair) return NULL;
+    return (List *)pair->value;
 }
 
 int getWeight(Graph* g, const char* label1, const char* label2) {
     if (!g || !label1 || !label2) return -1;
 
-    List *edges = getEdges(g, label1);
-    if(!edges) return -1;
-
-    Edge *tmpEdge = (Edge *)list_first(edges);
-    while(tmpEdge) {
-        if(strcmp(tmpEdge->target, label2)==0) return tmpEdge->weight;
-        tmpEdge = (Edge *)list_next(edges);
-    }
     // Si no existe el origen o terminamos de iterar sin encontrar el destino
     return -1; 
 }
