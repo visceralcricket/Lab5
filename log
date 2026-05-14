@@ -33,3 +33,15 @@ Thu May 14 06:13:00 PM UTC 2026:
  tests:  8|2
 ========================================
 593c8cf
+Thu May 14 06:15:51 PM UTC 2026: 
+ graph.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+Compilation failed
+In file included from test.c:5:
+graph.c: In function ‘getWeight’:
+graph.c:80:11: error: ‘edgeACtual’ undeclared (first use in this function); did you mean ‘edgeActual’?
+   80 |     while(edgeACtual) {
+      |           ^~~~~~~~~~
+      |           edgeActual
+graph.c:80:11: note: each undeclared identifier is reported only once for each function it appears in
+5f54b33
