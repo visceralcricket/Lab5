@@ -35,6 +35,7 @@ Graph* createGraph() {
         free(newGraph);
         return NULL;
     }
+    
     return newGraph;
 }
 
@@ -90,13 +91,13 @@ int getWeight(Graph* g, const char* label1, const char* label2) {
 List* getAdjacentLabels(Graph* g, const char* label) {
     if (!g || !label) return NULL;
 
-    List *edges = getEdges(g, label);
+    List *edges = getEdges(g, label); // Obtener arcos
     if(!edges) return NULL;
 
-    List *adjacentLabels = list_create();
+    List *adjacentLabels = list_create(); // Obtener labels adyacentes
     if(!adjacentLabels) return NULL;
 
-    Edge *edgeActual = (Edge *) list_first(edges);
+    Edge *edgeActual = (Edge *) list_first(edges); // Recorrer lista edges arco por arco
     while(edgeActual) {
         list_pushBack(adjacentLabels, (void *) edgeActual->target);
         edgeActual = (Edge *) list_next(edges);
