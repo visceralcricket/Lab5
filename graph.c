@@ -74,11 +74,12 @@ List* getEdges(Graph* g, const char* label) {
 int getWeight(Graph* g, const char* label1, const char* label2) {
     if (!g || !label1 || !label2) return -1;
 
-    List *edges = getEdges(g, label1);
+    List *edges = getEdges(g, label1); // Conseguir lista de aristas del nodo label1
     if(!edges) return -1;
 
     Edge *edgeActual = (Edge *) list_first(edges);
     while(edgeActual) {
+        // Si el label de la arista(target) es igual a label2, se retorna el peso
         if(is_equal_string(edgeActual->target, (void*) label2)) return edgeActual->weight;
         edgeActual = (Edge *) list_next(edges);
     }
@@ -91,13 +92,13 @@ int getWeight(Graph* g, const char* label1, const char* label2) {
 List* getAdjacentLabels(Graph* g, const char* label) {
     if (!g || !label) return NULL;
 
-    List *edges = getEdges(g, label); // Obtener arcos
+    List *edges = getEdges(g, label); // Obtener lista de aristas del nodo label
     if(!edges) return NULL;
 
     List *adjacentLabels = list_create(); // Obtener labels adyacentes
     if(!adjacentLabels) return NULL;
 
-    Edge *edgeActual = (Edge *) list_first(edges); // Recorrer lista edges arco por arco
+    Edge *edgeActual = (Edge *) list_first(edges); // Recorrer lista de aristas de una en una
     while(edgeActual) {
         list_pushBack(adjacentLabels, (void *) edgeActual->target);
         edgeActual = (Edge *) list_next(edges);
